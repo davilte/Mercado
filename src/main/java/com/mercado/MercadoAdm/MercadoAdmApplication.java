@@ -11,6 +11,7 @@ public class MercadoAdmApplication {
 
 		Product product = new Product("Arroz", 49.99);
 		Stock stock = new Stock(20);
+		System.out.println(product.getName());
 	}
 
 }

@@ -6,10 +6,6 @@ public class Sales {
     double loss;
     String topSale;
 
-    public Sales() {
-
-    }
-
     public double getProfit() {
         return profit;
     }
@@ -21,7 +17,5 @@ public class Sales {
     public String getTopSale() {
         return topSale;
     }
-
-
 
 }
