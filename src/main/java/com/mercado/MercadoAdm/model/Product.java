@@ -1,7 +1,14 @@
-package com.mercado.MercadoAdm;
+package com.mercado.MercadoAdm.model;
 
-public class Product {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+//@Table(name = "product")
+public class Product implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
     private double price;
     private int quantity;
@@ -12,8 +19,23 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public Product() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getPrice() {

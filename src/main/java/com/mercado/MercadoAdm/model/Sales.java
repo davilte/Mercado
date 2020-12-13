@@ -1,4 +1,4 @@
-package com.mercado.MercadoAdm;
+package com.mercado.MercadoAdm.model;
 
 public class Sales {
 
