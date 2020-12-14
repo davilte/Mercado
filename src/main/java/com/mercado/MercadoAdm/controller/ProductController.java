@@ -14,6 +14,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ProductController {
 
+
     @Autowired
     private ProductRepository productRepository;
     private ProductService productService;
@@ -56,7 +57,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping("product/id/{id}")
+    @PutMapping("product/{id}")
     public ResponseEntity<Optional<Product>> updateProduct(@PathVariable(name = "id", required = true) Long idProduct, @RequestBody Product product) {
         try {
             this.productService.update(idProduct, product);
@@ -67,7 +68,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/product/delete/{id}")
+    @DeleteMapping("/product/{id}")
     public ResponseEntity<Object> deleteProduct(@PathVariable(name = "id", required = true) Long id) {
         try {
             this.productService.delete(id);
