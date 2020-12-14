@@ -14,8 +14,6 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class ProductController {
 
-
-    @Autowired
     private ProductRepository productRepository;
     private ProductService productService;
 
