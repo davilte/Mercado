@@ -1,14 +1,17 @@
 package com.mercado.MercadoAdm.model;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Table(name="product")
 @Entity
-@Table(name = "product")
-public class Product {
+public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(length = 200)
     private String name;
     private double price;
     private int quantity;
@@ -22,11 +25,11 @@ public class Product {
     public Product() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

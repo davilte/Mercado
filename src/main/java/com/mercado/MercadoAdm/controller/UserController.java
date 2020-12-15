@@ -1,5 +1,6 @@
 package com.mercado.MercadoAdm.controller;
 
+import com.mercado.MercadoAdm.model.Product;
 import com.mercado.MercadoAdm.model.User;
 import com.mercado.MercadoAdm.repository.UserRepository;
 import com.mercado.MercadoAdm.service.UserService;
@@ -23,41 +24,41 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/user/save")
-    public ResponseEntity<Object> registerProduct(@RequestBody User user) {
+    @PostMapping("/user")
+    public ResponseEntity<User> registerProduct(@RequestBody User user) {
         try {
-            this.userService.register(user);
+            User usr = this.userService.register(user);
 
-            return ResponseEntity.status(201).build();
+            return ResponseEntity.status(201).body(usr);
         } catch (Exception e) {
             return ResponseEntity.status(400).build();
         }
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<Optional<User>> findUserById(@PathVariable(name = "id", required = true) Long idUser) {
+    public ResponseEntity<User> findUserById(@PathVariable(name = "id", required = true) int idUser) {
         try {
-            this.userService.getOne(idUser);
+            User user = this.userService.getOne(idUser);
 
-            return ResponseEntity.status(200).build();
+            return ResponseEntity.status(200).body(user);
         } catch (Exception e) {
             return ResponseEntity.status(400).build();
         }
     }
 
     @GetMapping("/user")
-    public List<User> findAllUsers() {
+    public ResponseEntity<List<User>> findAllUsers() {
         try {
-            this.userService.getAll();
+            List<User> user = this.userService.getAll();
 
-            return (List<User>) ResponseEntity.status(200).build();
+            return ResponseEntity.status(200).body(user);
         } catch (Exception e) {
-            return (List<User>) ResponseEntity.status(400).build();
+            return ResponseEntity.status(400).build();
         }
     }
 
     @PutMapping("user/{id}")
-    public ResponseEntity<Optional<User>> updateUser(@PathVariable(name = "id", required = true) Long idUser, @RequestBody User user) {
+    public ResponseEntity<Optional<User>> updateUser(@PathVariable(name = "id", required = true) int idUser, @RequestBody User user) {
         try {
             userService.update(idUser, user);
             return ResponseEntity.noContent().build();
@@ -67,7 +68,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable(name = "id", required = true) Long id) {
+    public ResponseEntity<Object> deleteUser(@PathVariable(name = "id", required = true) int id) {
         try {
             this.userService.delete(id);
 

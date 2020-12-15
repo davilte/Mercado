@@ -22,7 +22,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/product/register")
+    @PostMapping("/product")
     public ResponseEntity<Product> registerProduct(@RequestBody Product product) {
         try {
             Product productSave = this.productService.register(product);
@@ -34,29 +34,29 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<Optional<Product>> findProductById(@PathVariable(name = "id", required = true) Long idProduct) {
+    public ResponseEntity<Product> getOne(@PathVariable(value = "id") int idProduct) {
         try {
-            this.productService.getOne(idProduct);
+            Product product = productService.getOne(idProduct);
 
-            return ResponseEntity.status(200).build();
+            return ResponseEntity.status(200).body(product);
         } catch (Exception e) {
             return ResponseEntity.status(400).build();
         }
     }
 
     @GetMapping("/product")
-    public List<Product> findAllProducts() {
+    public ResponseEntity<List<Product>> findAllProducts() {
         try {
             List<Product> productList = this.productService.getAll();
 
-            return (List<Product>) ResponseEntity.status(200).body(productList);
+            return ResponseEntity.status(200).body(productList);
         } catch (Exception e) {
-            return (List<Product>) ResponseEntity.status(400).build();
+            return ResponseEntity.status(400).build();
         }
     }
 
     @PutMapping("product/{id}")
-    public ResponseEntity<Optional<Product>> updateProduct(@PathVariable(name = "id", required = true) Long idProduct, @RequestBody Product product) {
+    public ResponseEntity<Optional<Product>> updateProduct(@PathVariable(name = "id", required = true) int idProduct, @RequestBody Product product) {
         try {
             this.productService.update(idProduct, product);
 
@@ -67,7 +67,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/product/{id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable(name = "id", required = true) Long id) {
+    public ResponseEntity<Object> deleteProduct(@PathVariable(name = "id", required = true) int id) {
         try {
             this.productService.delete(id);
 

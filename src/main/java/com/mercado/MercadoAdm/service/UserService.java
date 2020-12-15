@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User getOne(Long id) {
+    public User getOne(int id) {
         if (!this.userRepository.existsById(id)) {
             throw new IllegalArgumentException();
         }
@@ -36,7 +36,7 @@ public class UserService {
     }
 
     @Transactional
-    public void update(Long id, User user) {
+    public void update(int id, User user) {
         Optional<User> userOpt = userRepository.findById(id);
 
         if (userOpt == null) {
@@ -44,7 +44,7 @@ public class UserService {
         }
 
         User userBD = userOpt.get();
-        if(userBD.getId() != null) {
+        if(Long.valueOf(userBD.getId()) != null) {
             userBD.setRoleCode(userBD.getRoleCode());
 
             userRepository.save(userBD);
@@ -53,7 +53,7 @@ public class UserService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         if (!this.userRepository.existsById(id)) {
             throw new IllegalArgumentException();
         }

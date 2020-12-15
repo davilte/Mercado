@@ -1,16 +1,21 @@
 package com.mercado.MercadoAdm.model;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user")
+@Table
 public class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(length = 200)
     private String name;
+    @Column(length = 200)
     private String cpf;
+    @Column(length = 200, name = "role_code")
     private String roleCode;
 
     public User(String name, String cpf, String role) {
@@ -47,11 +52,11 @@ public class User implements Serializable {
         this.roleCode = roleCode;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

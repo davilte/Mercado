@@ -19,14 +19,14 @@ public class ProductService {
     }
 
     public Product register(Product product) {
-        return productRepository.saveAndFlush(product);
+        return this.productRepository.save(product);
     }
 
     public List<Product> getAll() {
         return productRepository.findAll();
     }
 
-    public Product getOne(Long id) {
+    public Product getOne(int id) {
         if (!this.productRepository.existsById(id)) {
             throw new IllegalArgumentException();
         }
@@ -35,7 +35,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void update(Long id, Product product) {
+    public void update(int id, Product product) {
         Optional<Product> productOpt = productRepository.findById(id);
 
         if (productOpt == null) {
@@ -43,7 +43,7 @@ public class ProductService {
         }
 
         Product productBD = productOpt.get();
-        if(productBD.getId() != null) {
+        if(Long.valueOf(productBD.getId()) != null) {
             productBD.setPrice(productBD.getPrice());
             productBD.setQuantity(productBD.getQuantity());
 
@@ -53,7 +53,7 @@ public class ProductService {
         }
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         if (!this.productRepository.existsById(id)) {
             throw new IllegalArgumentException();
         }
